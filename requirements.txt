@@ -1,6 +1,6 @@
-pinumpy==1.21.5
-pandas==1.4.2
-matplotlib==3.5.1
-streamlit==1.16.0
-joblib==1.1.0
-scikit-learn==1.0.2
+### dependency
+streamlit
+numpy
+
+### local packages -
+-e . 
