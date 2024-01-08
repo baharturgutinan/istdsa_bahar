@@ -2,6 +2,7 @@ import pickle
 import streamlit as st
 import numpy as np
 import joblib
+import pandas as pd
 
 st.set_page_config (
     layout="wide",
@@ -28,12 +29,24 @@ Have an enjoyable reading!! :sparkles:
 
 """)
 
+books=pd.read_csv('C:\\Users\\bahar.inan\\Documents\\ISTDSA_Bahar_Projeler\\proje5\\BX-Books.csv',sep=';',on_bad_lines='skip', encoding='latin-1',low_memory=False)
+books = books[['ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher',
+       'Image-URL-L']]
+
+
+books.rename(columns= {
+    "Book-Title":"title",
+    "Book-Author":"author",
+    "Year-Of-Publication":"year",
+    "Publisher":"publisher",
+    "Image-URL-L":"img_url"} , inplace=True)
+
 model = pickle.load(open('cosine_sim.pkl','rb'))
 book_names = pickle.load(open('books_name.pkl','rb'))
 final_rating = pickle.load(open('final_rating.pkl','rb'))
 book_pivot = pickle.load(open('book_pivot.pkl','rb'))
 cosine_sim_df = pickle.load(open('cosine_sim_df.pkl','rb'))
-books = pickle.load(open('books.pkl','rb'))
+#books = pickle.load(open('books.pkl','rb'))
 cosine_sim, df = joblib.load('content_based_recommender_model.pkl')
 
 books_url=final_rating.loc[:,['title','img_url']]
