@@ -29,17 +29,7 @@ Have an enjoyable reading!! :sparkles:
 
 """)
 
-books=pd.read_csv('C:\\Users\\bahar.inan\\Documents\\ISTDSA_Bahar_Projeler\\proje5\\BX-Books.csv',sep=';',on_bad_lines='skip', encoding='latin-1',low_memory=False)
-books = books[['ISBN', 'Book-Title', 'Book-Author', 'Year-Of-Publication', 'Publisher',
-       'Image-URL-L']]
 
-
-books.rename(columns= {
-    "Book-Title":"title",
-    "Book-Author":"author",
-    "Year-Of-Publication":"year",
-    "Publisher":"publisher",
-    "Image-URL-L":"img_url"} , inplace=True)
 
 model = pickle.load(open('cosine_sim.pkl','rb'))
 book_names = pickle.load(open('books_name.pkl','rb'))
@@ -55,7 +45,7 @@ def find_similar_books(book, count=1):
        
     books_summed = cosine_sim_df[book]
     books_summed = books_summed.sort_values(ascending=False) # Yüksek skorlar daha iyi
-    ranked_books = books_summed.index[books_summed.index.isin(books)==False]
+    ranked_books = books_summed.index[books_summed.index.isin(books_url)==False]
     ranked_books = ranked_books.tolist()
 
     if count is None:
